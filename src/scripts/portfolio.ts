@@ -28,8 +28,7 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- hero background: intro burst of M's (several textures) resolving into
-     the real logo, then a discreet vertical code rain (0/1 + the M mark) underneath ---------- */
+  /* ---------- restrained logo reveal, then a discreet vertical code rain underneath ---------- */
   (function(){
     var canvas = document.getElementById('heroCanvas');
     if(!canvas) return;
@@ -103,39 +102,13 @@
        little paper card behind them like a cut-out -- before the one real logo resolves
        there. The rain behind stays pure 1s and 0s, everywhere else. ---- */
     var burst = [
-      // dropped the flattest ones (solid, outline, neon had no real surface texture) --
-      // every M left here has actual material detail
-      { ch: 'M', font: '900 78px Anton',                             style: 'fire',    dx: 0, dy: 0,  rot: 0,  delay: 0    },
-      { ch: 'M', font: 'italic 300 68px "Bricolage Grotesque"',       style: 'water',   dx: 0, dy: 0,  rot: 0,  delay: 220  },
-      { ch: 'm', font: '700 50px "IBM Plex Mono"',                    style: 'metal',   dx: 0, dy: 0,  rot: 0,  delay: 440,
-        paper: { color: '#dfe6ea', w: 66, h: 78, rot: 0 } },
-      { ch: 'M', font: '400 72px Georgia, "Times New Roman", serif',  style: 'grass',   dx: 0, dy: 0,  rot: 0,  delay: 660  },
-      { ch: 'M', font: '900 56px Impact, "Arial Narrow", sans-serif', style: 'stone',   dx: 0, dy: 0,  rot: 0,  delay: 880,
-        paper: { color: '#d9c9a8', w: 60, h: 72, rot: 0 } },
-      { ch: 'M', font: '700 60px Bricolage Grotesque',                style: 'chalk',   dx: 0, dy: 0,  rot: 0,  delay: 1100,
-        paper: { color: '#2a3630', w: 74, h: 84, rot: 0 } },
-      { ch: 'M', font: '400 66px "Trebuchet MS", sans-serif',         style: 'wood',    dx: 0, dy: 0,  rot: 0,  delay: 1320,
-        paper: { color: '#c9b591', w: 64, h: 76, rot: 0 } },
-      { ch: 'm', font: 'italic 400 50px Georgia, serif',              style: 'ice',     dx: 0, dy: 0,  rot: 0,  delay: 1540 },
-      { ch: 'M', font: 'italic 900 64px "Trebuchet MS", sans-serif',  style: 'graffiti',dx: 0, dy: 0,  rot: 0,  delay: 1760 },
-      { ch: 'M', font: '700 60px "Bricolage Grotesque"',              style: 'painted', dx: 0, dy: 0,  rot: 0,  delay: 1980 },
-      { ch: 'M', font: '400 62px Georgia, serif',                     style: 'statue',  dx: 0, dy: 0,  rot: 0,  delay: 2200 },
-      { ch: 'M', font: 'italic 400 76px "Brush Script MT", cursive',  style: 'gold',    dx: 0, dy: 0,  rot: 0,  delay: 2420 },
-      { ch: 'M', font: '200 78px "Bricolage Grotesque"',              style: 'glass',   dx: 0, dy: 0,  rot: 0,  delay: 2640 },
-      { ch: 'M', font: '900 60px "Arial Black", sans-serif',          style: 'lava',    dx: 0, dy: 0,  rot: 0,  delay: 2860 },
-      { ch: 'M', font: '400 64px "Palatino Linotype", Palatino, serif', style: 'rust',  dx: 0, dy: 0,  rot: 0,  delay: 3080 },
-      { ch: 'M', font: '700 50px Consolas, "Lucida Console", monospace', style: 'led',  dx: 0, dy: 0,  rot: 0,  delay: 3300 },
-      { ch: 'M', font: 'italic 300 74px "Bricolage Grotesque"',       style: 'galaxy',  dx: 0, dy: 0,  rot: 0,  delay: 3520 },
-      { ch: 'M', font: '500 54px "IBM Plex Mono"',                    style: 'circuit', dx: 0, dy: 0,  rot: 0,  delay: 3740 },
-      { ch: 'M', font: 'italic 900 62px Anton',                       style: 'lightning', dx: 0, dy: 0, rot: 0, delay: 3960 },
-      { ch: 'M', font: '300 70px Verdana, sans-serif',                style: 'crystal', dx: 0, dy: 0,  rot: 0,  delay: 4180 },
-      { ch: 'M', font: '700 60px fantasy',                            style: 'holo',    dx: 0, dy: 0,  rot: 0,  delay: 4400 }
+      { font: '500 70px "Bricolage Grotesque"', dx: -3, dy: 0, delay: 0, opacity: 0.2 },
+      { font: '400 76px Anton', dx: 2, dy: 1, delay: 260, opacity: 0.32 },
+      { font: '600 68px "Bricolage Grotesque"', dx: 0, dy: -1, delay: 520, opacity: 0.46 }
     ];
-    var SLOT = 245; // measured, calm rhythm between each M's entrance
-    // Each M gets a complete entrance and exit before the next one arrives. The longer
-    // overlap-free rhythm keeps the material changes legible without visual noise.
-    var FADE_IN = 115, HOLD = 70, FADE_OUT = 115, ITEM_LIFE = FADE_IN + HOLD + FADE_OUT;
-    var INTRO_DURATION = (burst.length - 1) * SLOT + ITEM_LIFE + 80;
+    var SLOT = 260;
+    var FADE_IN = 260, HOLD = 120, FADE_OUT = 300, ITEM_LIFE = FADE_IN + HOLD + FADE_OUT;
+    var INTRO_DURATION = (burst.length - 1) * SLOT + ITEM_LIFE + 120;
 
     function easeOutCubic(value){
       return 1 - Math.pow(1 - value, 3);
@@ -143,6 +116,19 @@
 
     function easeInOutSine(value){
       return -(Math.cos(Math.PI * value) - 1) / 2;
+    }
+
+    function drawRefinedGlyph(item, alpha, elapsed){
+      var breathing = 1 + Math.sin(elapsed * 0.0015) * 0.012;
+      ctx.font = item.font;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(245,245,245,' + (alpha * 0.32) + ')';
+      ctx.fillStyle = 'rgba(245,245,245,' + (alpha * item.opacity) + ')';
+      ctx.scale(breathing, breathing);
+      ctx.strokeText('M', 0, 0);
+      ctx.fillText('M', 0, 0);
     }
 
     // paints one letterform (varies by font/ch) in one material (varies by style),
@@ -580,19 +566,17 @@
         if(local < FADE_IN) alpha = easeOutCubic(local / FADE_IN);
         else if(local < FADE_IN + HOLD) alpha = 1;
         else alpha = 1 - easeInOutSine(Math.min(1, (local - FADE_IN - HOLD) / FADE_OUT));
-        var progress = Math.min(1, local / ITEM_LIFE);
         var arrival = easeOutCubic(Math.min(1, local / FADE_IN));
         var departure = Math.max(0, (local - FADE_IN - HOLD) / FADE_OUT);
         var drift = Math.sin((elapsed + item.delay) * 0.0022) * 3.2;
         var sway = Math.sin((elapsed + item.delay) * 0.0014) * 2.4;
-        var rotation = Math.sin((elapsed + item.delay) * 0.0018) * 2.4;
-        var scale = 0.82 + arrival * 0.2 - easeInOutSine(Math.min(1, departure)) * 0.06;
+        var rotation = Math.sin((elapsed + item.delay) * 0.0018) * 0.45;
+        var scale = 0.96 + arrival * 0.04 - easeInOutSine(Math.min(1, departure)) * 0.02;
         ctx.save();
-        ctx.translate(markX + (item.dx + sway) * responsive, markY + (item.dy + drift) * responsive);
-        ctx.rotate((item.rot + rotation + Math.sin(progress * Math.PI) * 1.2) * Math.PI / 180);
+        ctx.translate(markX + (item.dx + sway * 0.35) * responsive, markY + (item.dy + drift * 0.35) * responsive);
+        ctx.rotate(rotation * Math.PI / 180);
         ctx.scale(responsive * scale, responsive * scale);
-        if(item.paper) drawPaper(item.paper, alpha);
-        paintGlyphTexture(item.ch, item.font, item.style, alpha, elapsed);
+        drawRefinedGlyph(item, alpha, elapsed);
         ctx.restore();
       });
       ctx.restore();
