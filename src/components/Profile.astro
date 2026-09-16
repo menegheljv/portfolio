@@ -1,0 +1,28 @@
+---
+import Experience from './Experience.astro';
+import Projects from './Projects.astro';
+import Education from './Education.astro';
+import Awards from './Awards.astro';
+import Volunteering from './Volunteering.astro';
+import Skills from './Skills.astro';
+---
+  <section class="tabs-section wrap">
+    <p class="section-kicker">Profile</p>
+    <h2 class="section-heading">Work, Projects &amp; Proof</h2>
+
+    <div class="tab-bar" role="tablist">
+      <button class="tab-btn active" data-tab="work" role="tab" aria-selected="true">Work</button>
+      <button class="tab-btn" data-tab="projects" role="tab" aria-selected="false">Projects</button>
+      <button class="tab-btn" data-tab="education" role="tab" aria-selected="false">Education</button>
+      <button class="tab-btn" data-tab="awards" role="tab" aria-selected="false">Awards</button>
+      <button class="tab-btn" data-tab="volunteering" role="tab" aria-selected="false">Volunteering</button>
+      <button class="tab-btn" data-tab="skills" role="tab" aria-selected="false">Skills</button>
+    </div>
+
+<Experience />
+<Projects />
+<Education />
+<Awards />
+<Volunteering />
+<Skills />
+  </section>
