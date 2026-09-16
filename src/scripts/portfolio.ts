@@ -101,14 +101,8 @@
        SAME spot -- right where the real logo sits -- taking turns, some pasted onto a
        little paper card behind them like a cut-out -- before the one real logo resolves
        there. The rain behind stays pure 1s and 0s, everywhere else. ---- */
-    var burst = [
-      { font: '500 70px "Bricolage Grotesque"', dx: -3, dy: 0, delay: 0, opacity: 0.2 },
-      { font: '400 76px Anton', dx: 2, dy: 1, delay: 260, opacity: 0.32 },
-      { font: '600 68px "Bricolage Grotesque"', dx: 0, dy: -1, delay: 520, opacity: 0.46 }
-    ];
-    var SLOT = 260;
-    var FADE_IN = 260, HOLD = 120, FADE_OUT = 300, ITEM_LIFE = FADE_IN + HOLD + FADE_OUT;
-    var INTRO_DURATION = (burst.length - 1) * SLOT + ITEM_LIFE + 120;
+    var burst = [];
+    var INTRO_DURATION = 600;
 
     function easeOutCubic(value){
       return 1 - Math.pow(1 - value, 3);
