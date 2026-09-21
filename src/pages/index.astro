@@ -3,6 +3,8 @@ import Header from '../components/Header.astro';
 import Profile from '../components/Profile.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <!doctype html>
 <html lang="en">
@@ -16,11 +18,11 @@ import '../styles/global.css';
     <meta name="application-name" content="João Victor Meneghel" />
     <meta property="og:title" content="João Victor Meneghel | Data Storyteller" />
     <meta property="og:description" content="Comms & growth strategist working across public administration, data storytelling and AI governance." />
-    <meta property="og:image" content="/favicon.svg" />
+    <meta property="og:image" content={`${base}/favicon.svg`} />
     <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.svg`} />
+    <link rel="manifest" href={`${base}/site.webmanifest`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
