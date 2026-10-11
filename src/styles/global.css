@@ -1,9 +1,8 @@
   :root{
-    --bg:     #f6f4ef;
+    --bg:     #ffffff;
     --ink:    #17181b;
     --muted:  #5e6168;
-    --line:   #d8d4c9;
-    --accent: #16324a;
+        --accent: #16324a;
     --font:   'Bricolage Grotesque', system-ui, sans-serif;
     --font-small: 'Source Serif 4', Georgia, serif;
   }
@@ -27,19 +26,33 @@
     max-width:720px; margin-inline:auto; padding-inline:24px;
   }
 
-  nav.top{ display:flex; justify-content:space-between; align-items:center; padding-block:26px 0; }
+  nav.top{ display:flex; justify-content:flex-end; align-items:center; padding-block:26px 0; }
   .brand{ color:var(--ink); display:inline-flex; width:34px; }
   .brand svg{ width:100%; height:auto; display:block; }
   .links{ display:flex; flex-wrap:wrap; gap:4px 20px; font-size:15px; justify-content:flex-end; }
   .links a{ color:var(--ink); }
 
   .intro{ padding-block:64px 24px; }
-  .portrait{ width:96px; height:96px; border-radius:50%; object-fit:cover; margin-bottom:28px; }
+  .intro-top{ display:flex; align-items:center; gap:26px; margin-bottom:30px; }
+  .portrait{ width:96px; height:96px; border-radius:50%; object-fit:cover; flex:none; }
+  .intro-mark{ width:112px; color:var(--ink); }
+  .intro-mark svg{ width:100%; height:auto; display:block; overflow:visible; }
+  .intro-mark path{
+    stroke:currentColor; stroke-width:1.2; stroke-linejoin:round;
+    stroke-dasharray:1; stroke-dashoffset:1;
+    fill:currentColor; fill-opacity:0;
+    animation:mark-draw 1.8s cubic-bezier(.65,0,.35,1) .15s forwards, mark-fill .9s ease 1.5s forwards;
+  }
+  @keyframes mark-draw{ to{ stroke-dashoffset:0; } }
+  @keyframes mark-fill{ to{ fill-opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    .intro-mark path{ animation:none; stroke-dashoffset:0; fill-opacity:1; }
+  }
   h1{ font-size:clamp(38px,8vw,60px); font-weight:700; line-height:1.04; letter-spacing:-0.025em; }
   .lede{ font-size:clamp(21px,3.2vw,26px); line-height:1.35; margin-top:22px; letter-spacing:-0.01em; }
   .intro p + p{ margin-top:18px; color:var(--muted); }
 
-  section{ margin-top:72px; border-top:1px solid var(--line); padding-top:22px; }
+  section{ margin-top:84px; }
   h2{ font-size:15px; font-weight:600; color:var(--muted); margin-bottom:26px; }
 
   .project + .project{ margin-top:34px; }
@@ -61,7 +74,7 @@
   #skills .when{ color:var(--ink); }
   #skills .row p:not(.when){ color:var(--ink); }
 
-  footer.site-footer{ margin-top:80px; padding-block:28px 56px; border-top:1px solid var(--line); }
+  footer.site-footer{ margin-top:84px; padding-block:0 64px; }
   footer.site-footer p{ font-size:15px; color:var(--muted); }
 
   /* small information in a serif */
@@ -73,6 +86,8 @@
   @media (max-width:600px){
     body{ font-size:16.5px; }
     .intro{ padding-top:44px; }
+  .intro-mark{ width:88px; }
+  .intro-top{ gap:20px; }
     section{ margin-top:56px; }
     .row{ grid-template-columns:1fr; }
     .when{ padding-top:0; }
