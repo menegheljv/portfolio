@@ -3,18 +3,8 @@ import { MARK_PATH } from '../data/mark.ts';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Giant M drawn with 0s and 1s: a deterministic grid of digits, masked by the M shape.
-let seed = 7;
-const rnd = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
-const COLS = 120, ROWS = 52;
-const digits = Array.from({ length: ROWS }, () =>
-  Array.from({ length: COLS }, () => (rnd() > 0.5 ? '1' : '0')).join('')
-).join('\n');
-const maskSvg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='19.5 28 268 115'><path d='${MARK_PATH}' fill='black'/></svg>`;
-const maskUrl = `url("data:image/svg+xml,${encodeURIComponent(maskSvg)}")`;
 ---
   <div class="hero">
-    <div class="binary-m" aria-hidden="true" style={`--m-mask:${maskUrl}`}><pre>{digits}</pre></div>
     <header class="intro">
       <div class="intro-top">
         <img class="portrait" src={`${base}/assets/joao-victor.jpg`} width="96" height="96" alt="João Victor Meneghel" />
