@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 // Giant M drawn with 0s and 1s: a deterministic grid of digits, masked by the M shape.
 let seed = 7;
 const rnd = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
-const COLS = 120, ROWS = 52;
+const COLS = 120, ROWS = 32;
 const digits = Array.from({ length: ROWS }, () =>
   Array.from({ length: COLS }, () => (rnd() > 0.5 ? '1' : '0')).join('')
 ).join('\n');
