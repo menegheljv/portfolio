@@ -142,20 +142,18 @@
   .foot-title{ font-family:var(--font); font-size:clamp(var(--text-xl), 4.5vw, var(--text-2xl)); font-weight:650; letter-spacing:-0.015em; }
   footer.site-footer .btn-row{ margin-top:var(--space-5); }
 
-  /* giant M made of 0s and 1s, in the footer, fading out on the sides (decorative) */
+  .foot-grid{ display:grid; grid-template-columns:1fr 280px; gap:var(--space-7); align-items:center; }
+
+  /* the M made of 0s and 1s: a small signature, crisp edges, decorative */
   .binary-m{
-    position:relative; container-type:inline-size; width:min(1000px,100%); aspect-ratio:268 / 115; margin:var(--space-7) auto 0; overflow:hidden; pointer-events:none;
-    -webkit-mask-image:var(--m-mask), linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%);
-    -webkit-mask-size:contain, 100% 100%; -webkit-mask-repeat:no-repeat, no-repeat; -webkit-mask-position:center, center;
-    -webkit-mask-composite:source-in;
-    mask-image:var(--m-mask), linear-gradient(to right, transparent 0%, #000 22%, #000 78%, transparent 100%);
-    mask-size:contain, 100% 100%; mask-repeat:no-repeat, no-repeat; mask-position:center, center;
-    mask-composite:intersect;
+    container-type:inline-size; width:100%; aspect-ratio:268 / 115; overflow:hidden; pointer-events:none;
+    -webkit-mask-image:var(--m-mask); -webkit-mask-size:contain; -webkit-mask-repeat:no-repeat; -webkit-mask-position:center;
+    mask-image:var(--m-mask); mask-size:contain; mask-repeat:no-repeat; mask-position:center;
   }
   .binary-m pre{
     margin:0; width:100%; height:100%; overflow:hidden;
-    font-family:ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size:1.34cqw; line-height:1; letter-spacing:0.02em; white-space:pre;
-    color:rgba(245,245,245,0.42);
+    font-family:ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size:2.69cqw; line-height:1; letter-spacing:0.02em; white-space:pre;
+    color:#7fd1c4;   /* soft teal from the old code rain */
   }
 
   /* ---------- small screens ---------- */
@@ -169,6 +167,8 @@
     .stats{ grid-template-columns:1fr 1fr; row-gap:var(--space-5); }
     .project-grid{ grid-template-columns:1fr; }
     .project.featured{ padding:var(--space-5); }
+    .foot-grid{ grid-template-columns:1fr; gap:var(--space-6); }
+    .binary-m{ width:70%; }
     .row{ grid-template-columns:1fr; }
     .when{ padding-top:0; }
   }
