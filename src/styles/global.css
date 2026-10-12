@@ -61,7 +61,9 @@
   .intro-mark{ width:112px; color:var(--on-dark); }
 
   /* ---------- language switch ---------- */
-  html[data-lang="en"] [data-l="pt"], html[data-lang="pt"] [data-l="en"]{ display:none; }
+  html[data-lang="en"] [data-l]:not([data-l="en"]),
+  html[data-lang="pt"] [data-l]:not([data-l="pt"]),
+  html[data-lang="es"] [data-l]:not([data-l="es"]){ display:none; }
   .lang-switch{ margin-left:auto; align-self:flex-start; display:inline-flex; padding:3px; border-radius:9999px; box-shadow:inset 0 0 0 1px var(--on-dark-line); }
   .lang-switch button{
     min-width:44px; min-height:44px; padding:0 var(--space-3); border:0; border-radius:9999px; background:transparent; cursor:pointer;
