@@ -14,8 +14,8 @@
 
     /* type: Bricolage for reading, Plex Mono for small facts; ratio 1.25, base 18 */
     --font:       'Bricolage Grotesque', system-ui, sans-serif;
-    --font-small: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
-    --text-xs: 13px;
+    --font-small: 'IBM Plex Sans', system-ui, sans-serif;
+    --text-xs: 14px;
     --text-sm: 16px;
     --text-base: 18px;
     --text-lg: 22px;
@@ -95,7 +95,7 @@
   .stats span{ display:block; margin-top:var(--space-3); font-family:var(--font-small); font-size:var(--text-xs); line-height:1.5; color:var(--on-dark-muted); text-wrap:balance; }
 
   /* ---------- category jump bar ---------- */
-  .jump-bar{ position:sticky; top:0; z-index:10; padding-block:var(--space-3); background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); }
+  .jump-bar{ position:sticky; top:0; z-index:10; margin-top:var(--space-5); padding-block:var(--space-3); background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); }
   .jump{ max-width:var(--page); margin-inline:auto; padding-inline:var(--space-5); display:flex; flex-wrap:wrap; gap:var(--space-2); }
   .jump a{
     display:inline-flex; align-items:center; min-height:44px;
@@ -109,7 +109,7 @@
   /* ---------- sections ---------- */
   section{ margin-top:var(--space-9); }
   section#work{ margin-top:var(--space-6); }
-  h2{ font-family:var(--font-small); font-size:var(--text-xs); letter-spacing:0.04em; font-weight:600; color:var(--muted); margin-bottom:var(--space-5); }
+  h2{ font-family:var(--font-small); font-size:var(--text-xs); letter-spacing:0.02em; font-weight:600; color:var(--muted); margin-bottom:var(--space-5); }
 
   /* projects: one flagship, two supporting */
   .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); }
@@ -154,7 +154,7 @@
   }
   .binary-m pre{
     margin:0; width:100%; height:100%; overflow:hidden;
-    font-family:var(--font-small); font-size:1.34cqw; line-height:1; letter-spacing:0.02em; white-space:pre;
+    font-family:ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace; font-size:1.34cqw; line-height:1; letter-spacing:0.02em; white-space:pre;
     color:rgba(245,245,245,0.42);
   }
 
