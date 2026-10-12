@@ -27,9 +27,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <script is:inline>
       try {
         var saved = localStorage.getItem('lang');
-        if (saved === 'pt' || saved === 'en') {
+        if (saved === 'pt' || saved === 'en' || saved === 'es') {
           document.documentElement.dataset.lang = saved;
-          document.documentElement.lang = saved === 'pt' ? 'pt-BR' : 'en';
+          document.documentElement.lang = saved === 'pt' ? 'pt-BR' : saved;
         }
       } catch (e) {}
     </script>
@@ -51,18 +51,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           desc: 'João Victor Meneghel, Data Storyteller e estrategista de comunicação e crescimento, atuando entre administração pública, dados e narrativa com IA.',
           nav: 'Seções',
         },
+        es: {
+          title: 'João Victor Meneghel | Data Storyteller',
+          desc: 'João Victor Meneghel, Data Storyteller y estratega de comunicación y crecimiento, que actúa entre administración pública, datos y narrativa con IA.',
+          nav: 'Secciones',
+        },
       };
+      const HTML_LANG = { en: 'en', pt: 'pt-BR', es: 'es' };
       const setLang = (lang, save) => {
         const html = document.documentElement;
         html.dataset.lang = lang;
-        html.lang = lang === 'pt' ? 'pt-BR' : 'en';
+        html.lang = HTML_LANG[lang];
         document.title = T[lang].title;
         document.getElementById('meta-desc')?.setAttribute('content', T[lang].desc);
         document.querySelector('.jump')?.setAttribute('aria-label', T[lang].nav);
         document.querySelectorAll('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
         if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
       };
-      setLang(document.documentElement.dataset.lang === 'pt' ? 'pt' : 'en', false);
+      setLang(['pt', 'es'].includes(document.documentElement.dataset.lang) ? document.documentElement.dataset.lang : 'en', false);
       document.querySelectorAll('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
 
       const links = [...document.querySelectorAll('.jump a')];
