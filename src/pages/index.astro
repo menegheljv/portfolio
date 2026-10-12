@@ -27,9 +27,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <script is:inline>
       try {
         var saved = localStorage.getItem('lang');
-        if (saved === 'pt' || saved === 'en' || saved === 'es') {
+        if (saved === 'pt' || saved === 'en' || saved === 'es' || saved === 'zh') {
           document.documentElement.dataset.lang = saved;
-          document.documentElement.lang = saved === 'pt' ? 'pt-BR' : saved;
+          document.documentElement.lang = saved === 'pt' ? 'pt-BR' : saved === 'zh' ? 'zh-Hans' : saved;
         }
       } catch (e) {}
     </script>
@@ -56,8 +56,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           desc: 'João Victor Meneghel, Data Storyteller y estratega de comunicación y crecimiento, que actúa entre administración pública, datos y narrativa con IA.',
           nav: 'Secciones',
         },
+        zh: {
+          title: 'João Victor Meneghel | Data Storyteller',
+          desc: 'João Victor Meneghel，数据叙事者（Data Storyteller）与传播及增长策略师，工作于公共行政、数据与 AI 叙事的交汇处。',
+          nav: '章节',
+        },
       };
-      const HTML_LANG = { en: 'en', pt: 'pt-BR', es: 'es' };
+      const HTML_LANG = { en: 'en', pt: 'pt-BR', es: 'es', zh: 'zh-Hans' };
       const setLang = (lang, save) => {
         const html = document.documentElement;
         html.dataset.lang = lang;
@@ -68,7 +73,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         document.querySelectorAll('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
         if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
       };
-      setLang(['pt', 'es'].includes(document.documentElement.dataset.lang) ? document.documentElement.dataset.lang : 'en', false);
+      setLang(['pt', 'es', 'zh'].includes(document.documentElement.dataset.lang) ? document.documentElement.dataset.lang : 'en', false);
       document.querySelectorAll('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
 
       const links = [...document.querySelectorAll('.jump a')];
