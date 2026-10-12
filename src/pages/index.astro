@@ -7,12 +7,12 @@ import '../styles/global.css';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>João Victor Meneghel | Data Storyteller</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="João Victor Meneghel, Data Storyteller and comms &amp; growth strategist working at the intersection of public administration, data and AI-driven storytelling." />
+    <meta id="meta-desc" name="description" content="João Victor Meneghel, Data Storyteller and comms &amp; growth strategist working at the intersection of public administration, data and AI-driven storytelling." />
     <meta name="theme-color" content="#ffffff" />
     <meta name="application-name" content="João Victor Meneghel" />
     <meta property="og:title" content="João Victor Meneghel | Data Storyteller" />
@@ -24,6 +24,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <link rel="manifest" href={`${base}/site.webmanifest`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script is:inline>
+      try {
+        var saved = localStorage.getItem('lang');
+        if (saved === 'pt' || saved === 'en') {
+          document.documentElement.dataset.lang = saved;
+          document.documentElement.lang = saved === 'pt' ? 'pt-BR' : 'en';
+        }
+      } catch (e) {}
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,650;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
@@ -31,6 +40,31 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <Profile />
     <Footer />
     <script>
+      const T = {
+        en: {
+          title: 'João Victor Meneghel | Data Storyteller',
+          desc: 'João Victor Meneghel, Data Storyteller and comms & growth strategist working at the intersection of public administration, data and AI-driven storytelling.',
+          nav: 'Sections',
+        },
+        pt: {
+          title: 'João Victor Meneghel | Data Storyteller',
+          desc: 'João Victor Meneghel, Data Storyteller e estrategista de comunicação e crescimento, entre administração pública, dados e narrativa com IA.',
+          nav: 'Seções',
+        },
+      };
+      const setLang = (lang, save) => {
+        const html = document.documentElement;
+        html.dataset.lang = lang;
+        html.lang = lang === 'pt' ? 'pt-BR' : 'en';
+        document.title = T[lang].title;
+        document.getElementById('meta-desc')?.setAttribute('content', T[lang].desc);
+        document.querySelector('.jump')?.setAttribute('aria-label', T[lang].nav);
+        document.querySelectorAll('[data-set-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
+        if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
+      };
+      setLang(document.documentElement.dataset.lang === 'pt' ? 'pt' : 'en', false);
+      document.querySelectorAll('[data-set-lang]').forEach((b) => b.addEventListener('click', () => setLang(b.dataset.setLang, true)));
+
       const links = [...document.querySelectorAll('.jump a')];
       const byId = new Map(links.map((a) => [a.getAttribute('href').slice(1), a]));
       const io = new IntersectionObserver((entries) => {
